@@ -1,0 +1,61 @@
+<%- model_class = Game -%>
+<div class="page-header">
+  <h2>Resultados</h2>
+</div>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#grupos" data-toggle="tab">Fase de Grupos</a></li>
+  <li><a href="#octavos" data-toggle="tab">Octavos</a></li>
+  <li><a href="#cuartos" data-toggle="tab">Cuartos</a></li>
+  <li><a href="#semifinales" data-toggle="tab">Semifinales</a></li>
+  <li><a href="#terceroyfinal" data-toggle="tab">Tercero y Final</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="grupos">
+    <% @groups.each do |group| %>
+      <h3>Grupo <%= group.code %></h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th><!-- Pais 1 --></th>
+            <th><!-- Goles pais 1 --></th>
+            <th><!-- Guion --></th>
+            <th><!-- Goles pais 2 --></th>
+            <th><!-- Pais 2 --></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% group.games.order('date ASC').each do |game| %>
+            <tr>
+              <td><%= game.date.strftime('%Y-%m-%d') %></td>
+              <td class="right"><%= game.country1.name %> <%= image_tag "#{game.country1.code}.png", class: 'flag-icon' %></td>
+              <td class="right"><%= game.country1_goals.nil? ? '-' : game.country1_goals %></td>
+              <td class="center">:</td>
+              <td class="left"><%= game.country2_goals.nil? ? '-' : game.country2_goals %></td>
+              <td class="left"><%= image_tag "#{game.country2.code}.png", class: 'flag-icon' %> <%= game.country2.name %></td>
+              <td>
+                <%= link_to 'Actualizar resultado', edit_game_path(game), :class => 'btn btn-mini' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="octavos">
+    Octavos
+  </div>
+  <div class="tab-pane" id="cuartos">
+    Cuartos
+  </div>
+  <div class="tab-pane" id="semifinales">
+    Semifinales
+  </div>
+  <div class="tab-pane" id="terceroyfinal">
+    Tercero y final
+  </div>
+</div>

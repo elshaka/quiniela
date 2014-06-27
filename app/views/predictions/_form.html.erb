@@ -1,0 +1,18 @@
+<%= form_for @prediction, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label "Resultado", :class => 'control-label' %>
+    <div class="controls">
+      <%= "#{@prediction.game.country1.name}" %> <%= image_tag "#{@prediction.game.country1.code}.png", class: 'flag-icon' %> 
+      <%= f.text_field :country1_goals, :class => 'text_field goal_field' %> : 
+      <%= f.text_field :country2_goals, :class => 'text_field goal_field' %> 
+      <%= image_tag "#{@prediction.game.country2.code}.png", class: 'flag-icon' %> 
+      <%= "#{@prediction.game.country2.name}" %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Aceptar', :class => 'btn btn-primary' %>
+    <%= link_to 'Cancelar',
+                user_path(@prediction.user_id), :class => 'btn' %>
+  </div>
+<% end %>

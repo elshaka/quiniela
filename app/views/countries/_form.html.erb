@@ -1,0 +1,27 @@
+<%= form_for @country, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :code, 'Código', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :code, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :name, 'Nombre', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :group_id, 'Grupo', :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select :group_id, @groups, :id, :code, :class => 'select_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Aceptar', :class => 'btn btn-primary' %>
+    <%= link_to 'Cancelar',
+                countries_path, :class => 'btn' %>
+  </div>
+<% end %>

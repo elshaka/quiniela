@@ -1,0 +1,19 @@
+// Place all the styles related to the Games controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+th.right, td.right {
+  text-align: right;
+}
+
+th.left, td.left {
+  text-align: left;
+}
+
+td.center, td.center {
+  text-align: center;
+}
+
+input.goal_field {
+  width: 20px;
+}

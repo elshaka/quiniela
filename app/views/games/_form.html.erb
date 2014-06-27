@@ -1,0 +1,29 @@
+<%= form_for @game, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label 'Fecha', :class => 'control-label' %>
+    <div class="controls">
+      <div class="datepicker">
+        <%= f.text_field :date, 'data-format' => 'yyyy-MM-dd' %>
+        <span class="add-on">
+          <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label "Resultado", :class => 'control-label' %>
+    <div class="controls">
+      <%= "#{@game.country1.name}" %> <%= image_tag "#{@game.country1.code}.png", class: 'flag-icon' %> 
+      <%= f.text_field :country1_goals, :class => 'text_field goal_field' %> : 
+      <%= f.text_field :country2_goals, :class => 'text_field goal_field' %> 
+      <%= image_tag "#{@game.country2.code}.png", class: 'flag-icon' %> 
+      <%= "#{@game.country2.name}" %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit 'Aceptar', :class => 'btn btn-primary' %>
+    <%= link_to 'Cancelar',
+                games_path, :class => 'btn' %>
+  </div>
+<% end %>

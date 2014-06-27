@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  type: 1
+  datetime: 2014-06-25 02:38:45
+  country1_id: 1
+  country1_goals: 1
+  country2_id: 1
+  country2_goals: 1
+
+two:
+  number: 1
+  type: 1
+  datetime: 2014-06-25 02:38:45
+  country1_id: 1
+  country1_goals: 1
+  country2_id: 1
+  country2_goals: 1

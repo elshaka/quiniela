@@ -1,0 +1,54 @@
+<%- model_class = Country -%>
+<div class="page-header">
+  <h1>Grupos</h1>
+</div>
+<% Group.order('code ASC').each do |group| %>
+<h2>Grupo <%= group.code %></h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="center">Equipo</th>
+      <th class="center">Puntos</th>
+      <th class="center">PJ</th>
+      <th class="center">PG</th>
+      <th class="center">PE</th>
+      <th class="center">PP</th>
+      <th class="center">GF</th>
+      <th class="center">GC</th>
+      <th class="center">Dif</th>
+      <!-- <th>Acciones</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <% group.countries.order('points DESC, dif DESC, gf DESC').each do |country| %>
+      <tr>
+        <td><%= image_tag "#{country.code}.png", class: 'flag-icon' %> <%= country.name %></td>
+        <td class="center"><%= country.points %></td>
+        <td class="center"><%= country.pj %></td>
+        <td class="center"><%= country.pg %></td>
+        <td class="center"><%= country.pe %></td>
+        <td class="center"><%= country.pp %></td>
+        <td class="center"><%= country.gf %></td>
+        <td class="center"><%= country.gc %></td>
+        <td class="center"><%= country.dif %></td>
+        <!--
+        <td>
+          <%= link_to 'Editar',
+                      edit_country_path(country), :class => 'btn btn-mini' %>
+          <%= link_to 'Eliminar',
+                      country_path(country),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Está seguro?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+        -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+<!--
+<%= link_to 'Nuevo',
+            new_country_path,
+            :class => 'btn btn-primary' %>
+-->
