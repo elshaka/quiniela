@@ -12,11 +12,11 @@
     </tr>
   </thead>
   <tbody>
-    <% @users_points.each_with_index do |(user_id, user_points), i| %>
+    <% @users_points.each_with_index do |(user_id, user_info), i| %>
       <tr>
-        <td><%= i + 1%></td>
-        <td><%= @users_names[user_id] %></td>
-        <td><%= user_points %></td>
+        <td><%= i + 1 %></td>
+        <td><%= user_info[:name] %></td>
+        <td><%= user_info[:points] %></td>
         <td>
           <%= link_to 'Ver Quiniela',
                       user_path(user_id), :class => 'btn btn-mini btn-primary' %>

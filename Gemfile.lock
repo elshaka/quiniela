@@ -1,5 +1,12 @@
+GIT
+  remote: git://github.com/jetthoughts/yaml_db.git
+  revision: fb4b6bd7e12de3cffa93e0a298a1e5253d7e92ba
+  ref: fb4b6bd7e12de3cffa93e0a298a1e5253d7e92ba
+  specs:
+    yaml_db (0.2.3)
+
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (4.1.1)
       actionpack (= 4.1.1)
@@ -41,7 +48,7 @@ GEM
     daemons (1.1.9)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    execjs (2.2.0)
+    execjs (2.2.1)
     hike (1.2.3)
     i18n (0.6.9)
     jbuilder (2.1.1)
@@ -57,6 +64,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.3.5)
     multi_json (1.10.1)
+    mysql2 (0.3.16)
     polyglot (0.3.5)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
@@ -100,7 +108,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    sqlite3 (1.3.9)
     thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -132,13 +139,14 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
+  mysql2
   quiet_assets
   rails (= 4.1.1)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring
-  sqlite3
   thin
   turbolinks
   twitter-bootstrap-rails
   uglifier (>= 1.3.0)
+  yaml_db!

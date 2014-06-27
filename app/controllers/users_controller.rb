@@ -8,16 +8,15 @@ class UsersController < ApplicationController
   end
 
   def ranking
-    @users_names = User.get_all_names()
-    @users_points = User.get_all_points()
+    @users_points = User.get_all_points
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
     @groups = Group.all
-    @predictions = @user.get_predictions()
-    @points = @user.get_points()
+    @predictions = @user.get_predictions
+    @points = @user.get_points
   end
 
   # GET /users/new

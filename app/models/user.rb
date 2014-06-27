@@ -16,36 +16,28 @@ class User < ActiveRecord::Base
   end
 
   def get_predictions
-    predictions = {}
-    Group.all.each do |group|
-      predictions[group.id] = Prediction
+    Group.all.inject({}) do |hash, group|
+      hash[group.id] = Prediction
         .includes(game: {country1: {}, country2: {}})
         .where(user_id: self.id)
         .where(games: {group_id: group.id})
         .order('games.date ASC')
+      hash
     end
-    return predictions
   end
 
   def get_points
     return self.predictions.sum(:points)
   end
 
-  def self.get_all_names
-    User.all.each.inject({}) do |hash, user|
-      hash[user.id] = user.name
-      hash
-    end
-  end
-
   def self.get_all_points
     Prediction
       .joins(:user)
-      .select('user_id, users.name AS user_name, SUM(points) AS user_points')
+      .select('user_id, users.name AS name, SUM(points) AS points')
       .group('user_id')
-      .order('user_points DESC')
+      .order('points DESC')
       .inject({}) do |hash, pp|
-        hash[pp[:user_id]] = pp[:user_points]
+        hash[pp[:user_id]] = {name: pp[:name], points: pp[:points]}
         hash
     end
   end
