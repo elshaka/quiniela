@@ -1,6 +1,6 @@
 <%- model_class = User -%>
 <div class="page-header">
-  <h1>Quiniela de <%= @user.name %></h1>
+  <h2>Quiniela de <%= @user.name %></h2>
 </div>
 <dl class="dl-horizontal">
   <dt><strong>Total puntos:</strong></dt>
@@ -10,59 +10,57 @@
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
   <li class="active"><a href="#grupos" data-toggle="tab">Fase de Grupos</a></li>
-  <li><a href="#octavos" data-toggle="tab">Octavos</a></li>
-  <li><a href="#cuartos" data-toggle="tab">Cuartos</a></li>
-  <li><a href="#semifinales" data-toggle="tab">Semifinales</a></li>
-  <li><a href="#terceroyfinal" data-toggle="tab">Tercero y Final</a></li>
+  <li><a href="#final" data-toggle="tab">Fase Final</a></li>
 </ul>
 
 <div class="tab-content">
   <div class="tab-pane active" id="grupos">
-    <% @groups.each do |group| %>
-    <h2>Grupo <%= group.code %></h2>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th><!-- Pais 1 --></th>
-          <th><!-- Goles pais 1 --></th>
-          <th><!-- Guion --></th>
-          <th><!-- Goles pais 2 --></th>
-          <th><!-- Pais 2 --></th>
-          <th>Puntos</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @predictions[group.id].each do |p| %>
-          <tr>
-            <td><%= p.game.date.strftime('%Y-%m-%d') %></td>
-            <td class="right"><%= p.game.country1.name %> <%= image_tag "#{p.game.country1.code}.png", class: 'flag-icon' %></td>
-            <td class="right"><%= p.country1_goals.nil? ? '-' : p.country1_goals %></td>
-            <td class="center">:</td>
-            <td class="left"><%= p.country2_goals.nil? ? '-' : p.country2_goals %></td>
-            <td class="left"><%= image_tag "#{p.game.country2.code}.png", class: 'flag-icon' %> <%= p.game.country2.name %></td>
-            <td><%= p.points %></td>
-            <td>
-              <%= link_to 'Editar predicción',
-                          edit_prediction_path(p), :class => 'btn btn-mini' %>
-            </td>
-          </tr>
+    <ul class="nav nav-tabs">
+      <% @groups.each_with_index do |group, index| %>
+        <li <%= index == 0 ? 'class=active' : '' %>>
+          <a href="#grupo_<%= group.code %>" data-toggle="tab">Grupo <%= group.code %></a>
+        </li>
+      <% end %>
+    </ul>
+    <div class="tab-content">
+      <% @groups.each_with_index do |group, index| %>
+        <div class="tab-pane <%= index == 0 ? 'active' : '' %>" id="grupo_<%= group.code %>">
+          <h4>Grupo <%= group.code %></h4>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th><!-- Pais 1 --></th>
+                <th><!-- Goles pais 1 --></th>
+                <th><!-- Guion --></th>
+                <th><!-- Goles pais 2 --></th>
+                <th><!-- Pais 2 --></th>
+                <th>Puntos</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @predictions[group.id].each do |p| %>
+                <tr>
+                  <td><%= p.game.date.strftime('%Y-%m-%d') %></td>
+                  <td class="right"><%= p.game.country1.name %> <%= image_tag "#{p.game.country1.code}.png", class: 'flag-icon' %></td>
+                  <td class="right"><%= p.country1_goals.nil? ? '-' : p.country1_goals %></td>
+                  <td class="center">:</td>
+                  <td class="left"><%= p.country2_goals.nil? ? '-' : p.country2_goals %></td>
+                  <td class="left"><%= image_tag "#{p.game.country2.code}.png", class: 'flag-icon' %> <%= p.game.country2.name %></td>
+                  <td><%= p.points %></td>
+                  <td>
+                    <%= link_to 'Editar predicción', edit_prediction_path(p), :class => 'btn btn-mini' %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          </div>
         <% end %>
-      </tbody>
-    </table>
-    <% end %>
+      </div>
   </div>
-  <div class="tab-pane" id="octavos">
-    Octavos
-  </div>
-  <div class="tab-pane" id="cuartos">
-    Cuartos
-  </div>
-  <div class="tab-pane" id="semifinales">
-    Semifinales
-  </div>
-  <div class="tab-pane" id="terceroyfinal">
-    Tercero y final
+  <div class="tab-pane" id="final">
+    Fase Final
   </div>
 </div>

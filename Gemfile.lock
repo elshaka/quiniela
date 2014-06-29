@@ -1,10 +1,3 @@
-GIT
-  remote: git://github.com/jetthoughts/yaml_db.git
-  revision: fb4b6bd7e12de3cffa93e0a298a1e5253d7e92ba
-  ref: fb4b6bd7e12de3cffa93e0a298a1e5253d7e92ba
-  specs:
-    yaml_db (0.2.3)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -45,6 +38,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    daemon_controller (1.2.0)
     daemons (1.1.9)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -65,6 +59,10 @@ GEM
     minitest (5.3.5)
     multi_json (1.10.1)
     mysql2 (0.3.16)
+    passenger (4.0.45)
+      daemon_controller (>= 1.2.0)
+      rack
+      rake (>= 0.8.1)
     polyglot (0.3.5)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
@@ -140,6 +138,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mysql2
+  passenger
   quiet_assets
   rails (= 4.1.1)
   sass-rails (~> 4.0.3)
@@ -149,4 +148,3 @@ DEPENDENCIES
   turbolinks
   twitter-bootstrap-rails
   uglifier (>= 1.3.0)
-  yaml_db!

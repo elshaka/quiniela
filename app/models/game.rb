@@ -1,25 +1,7 @@
 class Game < ActiveRecord::Base
-  self.inheritance_column = nil
-
-  FASEDEGRUPOS = 1
-  OCTAVOS = 2
-  CUARTOS = 3
-  SEMIFINALES = 4
-  FINAL = 5
-  TERCERO = 6
-
-  STRINGS = {
-    1 => 'Fase de grupos',
-    2 => 'Octavos de final',
-    3 => 'Cuartos de final',
-    4 => 'Semifinales',
-    5 => 'Final',
-    6 => 'Tercer lugar'
-  }
-
   belongs_to :group
-  belongs_to :country1, class_name: 'Country', foreign_key: 'country1_id'
-  belongs_to :country2, class_name: 'Country', foreign_key: 'country2_id'
+  belongs_to :country1, class_name: 'Country'
+  belongs_to :country2, class_name: 'Country'
   has_many :predictions
 
   validates :date, presence: true
@@ -37,6 +19,7 @@ class Game < ActiveRecord::Base
     end
   end
 
+  #383471
   def set_played
     self.played = country1_goals.present? and country2_goals.present?
     if self.played
@@ -151,4 +134,22 @@ class Game < ActiveRecord::Base
       end
     end
   end
+
+  self.inheritance_column = nil
+
+  FASEDEGRUPOS = 1
+  OCTAVOS = 2
+  CUARTOS = 3
+  SEMIFINALES = 4
+  FINAL = 5
+  TERCERO = 6
+
+  STRINGS = {
+    1 => 'Fase de grupos',
+    2 => 'Octavos de final',
+    3 => 'Cuartos de final',
+    4 => 'Semifinales',
+    5 => 'Final',
+    6 => 'Tercer lugar'
+  }
 end

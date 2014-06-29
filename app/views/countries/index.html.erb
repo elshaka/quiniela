@@ -1,6 +1,6 @@
 <%- model_class = Country -%>
 <div class="page-header">
-  <h1>Grupos</h1>
+  <h2>Grupos</h2>
 </div>
 <% Group.order('code ASC').each do |group| %>
 <h2>Grupo <%= group.code %></h2>

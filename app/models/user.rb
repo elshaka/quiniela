@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def get_points
-    return self.predictions.sum(:points)
+    self.predictions.sum(:points)
   end
 
   def self.get_all_points
