@@ -110,6 +110,7 @@
           <th><!-- Guion --></th>
           <th><!-- Goles pais 2 --></th>
           <th><!-- Pais 2 --></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -124,18 +125,17 @@
             <% end %>
             <td class="right"><%= game.country1_goals.nil? ? '-' : game.country1_goals %></td>
             <td class="center">:</td>
+            <td class="left"><%= game.country2_goals.nil? ? '-' : game.country2_goals %></td>
             <% unless game.country2_id.nil? %>
-              <td class="left"><%= game.country2_goals.nil? ? '-' : game.country2_goals %></td>
               <td class="left"><%= image_tag "#{game.country2.code}.png", class: 'flag-icon' %> <%= game.country2.name %></td>
-              <td>
             <% else %>
-              <td class="left"><%= game.country2_goals.nil? ? '-' : game.country2_goals %></td>
               <td class="left"><%= image_tag "none.png", class: 'flag-icon' %> Segundo Grupo <%= game.second_place_group.code %></td>
-              <td>
             <% end %>
-              <% if game.defined %>
-                <%= link_to 'Actualizar resultado', edit_game_path(game), :class => 'btn btn-mini' %>
-              <% end %>
+            <td>
+            <% if game.defined %>
+              <%= link_to 'Actualizar resultado', edit_game_path(game), :class => 'btn btn-mini' %>
+            <% end %>
+            </td>
             </td>
           </tr>
         <% end %>
@@ -154,6 +154,7 @@
             <th><!-- Guion --></th>
             <th><!-- Goles pais 2 --></th>
             <th><!-- Pais 2 --></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -168,18 +169,16 @@
               <% end %>
               <td class="right"><%= game.country1_goals.nil? ? '-' : game.country1_goals %></td>
               <td class="center">:</td>
+              <td class="left"><%= game.country2_goals.nil? ? '-' : game.country2_goals %></td>
               <% unless game.country2_id.nil? %>
-                <td class="left"><%= game.country2_goals.nil? ? '-' : game.country2_goals %></td>
                 <td class="left"><%= image_tag "#{game.country2.code}.png", class: 'flag-icon' %> <%= game.country2.name %></td>
-                <td>
               <% else %>
-                <td class="left"><%= game.country2_goals.nil? ? '-' : game.country2_goals %></td>
                 <td class="left"><%= image_tag "none.png", class: 'flag-icon' %> <%= type != Game::TERCERO ? 'Ganador' : 'Perdedor' %> juego <%= game.previous_match2.number %></td>
-                <td>
               <% end %>
-                <% if game.defined %>
-                  <%= link_to 'Actualizar resultado', edit_game_path(game), :class => 'btn btn-mini' %>
-                <% end %>
+              <td>
+              <% if game.defined %>
+                <%= link_to 'Actualizar resultado', edit_game_path(game), :class => 'btn btn-mini' %>
+              <% end %>
               </td>
             </tr>
           <% end %>

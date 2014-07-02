@@ -19,6 +19,7 @@ class PredictionsController < ApplicationController
 
   # GET /predictions/1/edit
   def edit
+    redirect_to user_path(@prediction.user_id) unless @prediction.game.defined
   end
 
   # POST /predictions

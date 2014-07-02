@@ -41,4 +41,17 @@ class User < ActiveRecord::Base
         hash
     end
   end
+
+  def self.get_top_3
+    Prediction
+      .joins(:user)
+      .select('user_id, users.name AS name, SUM(points) AS points')
+      .group('user_id')
+      .order('points DESC')
+      .limit(3)
+      .inject({}) do |hash, pp|
+        hash[pp[:user_id]] = {name: pp[:name], points: pp[:points]}
+        hash
+    end
+  end
 end

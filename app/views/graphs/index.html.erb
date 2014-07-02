@@ -1,0 +1,15 @@
+<canvas id="viewport" width="1000" height="400"></canvas>
+<script language="javascript" type="text/javascript">
+  var sys = arbor.ParticleSystem(1000, 400,1);
+  sys.parameters({gravity:true});
+  sys.renderer = Renderer("#viewport");
+  $.getJSON( "graph/get_graph.json", function(data) {
+    sys.graft(data);
+  });
+</script>
+<h4>Leyenda</h4>
+<ul>
+  <% (Game::OCTAVOS .. Game::FINAL).each do |type| %>
+    <li class="leyend" style="background-color: <%= Game::TYPE_COLORS[type] %>;"><%= Game::TYPE_STRINGS[type] %></li>
+  <% end %>
+</ul>

@@ -1,19 +1,18 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
-  # GET /games
-  # GET /games.json
   def index
     @groups = Group.includes(:countries)
   end
 
-  # GET /games/1/edit
+  def show
+    redirect_to games_path
+  end
+
   def edit
     redirect_to games_path unless @game.defined
   end
 
-  # PATCH/PUT /games/1
-  # PATCH/PUT /games/1.json
   def update
     respond_to do |format|
       if @game.update(game_params)

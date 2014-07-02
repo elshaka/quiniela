@@ -14,30 +14,11 @@
 
     <%= stylesheet_link_tag "application", :media => "all" %>
 
-    <!-- For third-generation iPad with high-resolution Retina display: -->
-    <!-- Size should be 144 x 144 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
-
-    <!-- For iPhone with high-resolution Retina display: -->
-    <!-- Size should be 114 x 114 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
-
-    <!-- For first- and second-generation iPad: -->
-    <!-- Size should be 72 x 72 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
-
-    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-    <!-- Size should be 57 x 57 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
-
-    <!-- For all other devices -->
-    <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
     <%= javascript_include_tag "application" %>
   </head>
-  <body>
-
+  <body data-no-turbolink="true">
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -46,12 +27,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Quiniela Brasil 2014</a>
+          <a class="brand" href="/">Quiniela <%= image_tag "logo_small.png", alt: "Brasil 2014", width: "70", id: "logo" %></a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Usuarios", users_path %></li>
               <li><%= link_to "Ranking", "/" %></li>
               <li><%= link_to "Resultados", games_path %></li>
+              <li><%= link_to "Usuarios", users_path %></li>
+              <li><%= link_to "Grafo", "/graph" %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -68,17 +50,15 @@
           <div class="well sidebar-nav">
             <h4>Top 3 Usuarios</h4>
             <ol class="nav nav-list">
-              <li>Pepito (12)</li>
-              <li>Pepote (11)</li>
-              <li>Blah (10)</li>
+              <% User.get_top_3.each do |user_id, user_data| %>
+              <li><%= link_to "#{user_data[:name]} (#{user_data[:points].nil? ? 0 : user_data[:points]})", user_path(user_id) %></li>
+              <% end %>
               <li><a href="/">Ver todos</a></li>
             </ol>
-            <h4>Últimos resultados</h4>
-            <ul class="nav nav-list">
-              <li>Una vaina ahi</li>
-              <li>Otra vaina ahi</li>
-              <li>Deberia irme a dormir</li>
-              <li><a href="/games">Ver todos</a></li>
+            <h4>Realizado por</h4>
+            <ul>
+              <li>Eleazar Meza CI 17782097</li>
+              <li>German Gómez CI 84336130</li>
             </ul>
           </div>
         </div>

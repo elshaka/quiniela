@@ -9,12 +9,15 @@
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#grupos" data-toggle="tab">Fase de Grupos</a></li>
-  <li><a href="#final" data-toggle="tab">Fase Final</a></li>
+  <% (Game::FASEDEGRUPOS .. Game::FINAL).each do |type| %>
+    <li class="<%= type == Game::FASEDEGRUPOS ? 'active' : '' %>">
+      <a href="#fase_<%= type %>" data-toggle="tab"><%= Game::TYPE_STRINGS[type] %></a>
+    </li>
+  <% end %>
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="grupos">
+  <div class="tab-pane active" id="fase_<%= Game::FASEDEGRUPOS %>">
     <ul class="nav nav-tabs">
       <% @groups.each_with_index do |group, index| %>
         <li <%= index == 0 ? 'class=active' : '' %>>
@@ -60,7 +63,93 @@
         <% end %>
       </div>
   </div>
-  <div class="tab-pane" id="final">
-    Fase Final
+  <div class="tab-pane" id="fase_<%= Game::OCTAVOS %>">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>Fecha</th>
+          <th><!-- Pais 1 --></th>
+          <th><!-- Goles pais 1 --></th>
+          <th><!-- Guion --></th>
+          <th><!-- Goles pais 2 --></th>
+          <th><!-- Pais 2 --></th>
+          <th>Puntos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Prediction.includes(:game).where(user_id: @user.id, games: {type: Game::OCTAVOS}).each do |p| %>
+          <tr>
+            <td><%= p.game.number %></td>
+            <td><%= p.game.date.strftime('%Y-%m-%d') %></td>
+            <% unless p.game.country1_id.nil? %>
+              <td class="right"><%= p.game.country1.name %> <%= image_tag "#{p.game.country1.code}.png", class: 'flag-icon' %></td>
+            <% else %>
+              <td class="right">Primero Grupo <%= p.game.first_place_group.code %> <%= image_tag "none.png", class: 'flag-icon' %></td>
+            <% end %>
+            <td class="right"><%= p.country1_goals.nil? ? '-' : p.country1_goals %></td>
+            <td class="center">:</td>
+            <td class="left"><%= p.country2_goals.nil? ? '-' : p.country2_goals %></td>
+            <% unless p.game.country2_id.nil? %>
+              <td class="left"><%= image_tag "#{p.game.country2.code}.png", class: 'flag-icon' %> <%= p.game.country2.name %></td>
+            <% else %>
+              <td class="left"><%= image_tag "none.png", class: 'flag-icon' %> Segundo Grupo <%= p.game.second_place_group.code %></td>
+            <% end %>
+            <td><%= p.points %></td>
+            <td>
+            <% if p.game.defined %>
+              <%= link_to 'Editar predicción', edit_prediction_path(p), :class => 'btn btn-mini' %>
+            <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
+  <% (Game::CUARTOS .. Game::FINAL).each do |type| %>
+    <div class="tab-pane" id="fase_<%= type %>">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Fecha</th>
+            <th><!-- Pais 1 --></th>
+            <th><!-- Goles pais 1 --></th>
+            <th><!-- Guion --></th>
+            <th><!-- Goles pais 2 --></th>
+            <th><!-- Pais 2 --></th>
+            <th>Puntos</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% Prediction.includes(:game).where(games: {type: type}, user_id: @user.id).each do |p| %>
+            <tr>
+              <td><%= p.game.number %></td>
+              <td><%= p.game.date.strftime('%Y-%m-%d') %></td>
+              <% unless p.game.country1_id.nil? %>
+                <td class="right"><%= p.game.country1.name %> <%= image_tag "#{p.game.country1.code}.png", class: 'flag-icon' %></td>
+              <% else %>
+                <td class="right"><%= type != Game::TERCERO ? 'Ganador' : 'Perdedor' %> juego <%= p.game.previous_match1.number %> <%= image_tag "none.png", class: 'flag-icon' %></td>
+              <% end %>
+              <td class="right"><%= p.game.country1_goals.nil? ? '-' : p.game.country1_goals %></td>
+              <td class="center">:</td>
+              <td class="left"><%= p.game.country2_goals.nil? ? '-' : p.game.country2_goals %></td>
+              <% unless p.game.country2_id.nil? %>
+                <td class="left"><%= image_tag "#{p.game.country2.code}.png", class: 'flag-icon' %> <%= p.game.country2.name %></td>
+              <% else %>
+                <td class="left"><%= image_tag "none.png", class: 'flag-icon' %> <%= type != Game::TERCERO ? 'Ganador' : 'Perdedor' %> juego <%= p.game.previous_match2.number %></td>
+              <% end %>
+              <td><%= p.points %></td>
+              <td>
+              <% if p.game.defined %>
+                <%= link_to 'Editar predicción', edit_prediction_path(p), :class => 'btn btn-mini' %>
+              <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>

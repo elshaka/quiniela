@@ -14,3 +14,7 @@
  *= require_self
  *= require bootstrap-datepicker
  */
+
+ #logo {
+  margin-top: -8px;
+ }
