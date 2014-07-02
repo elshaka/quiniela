@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625183030) do
+ActiveRecord::Schema.define(version: 20140630185235) do
 
   create_table "countries", force: true do |t|
     t.string   "code"
@@ -37,11 +37,15 @@ ActiveRecord::Schema.define(version: 20140625183030) do
     t.integer  "country1_goals"
     t.integer  "country2_id"
     t.integer  "country2_goals"
-    t.boolean  "defined",        default: false
-    t.boolean  "played",         default: false
+    t.boolean  "defined",               default: false
+    t.boolean  "played",                default: false
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "previous_match1_id"
+    t.integer  "previous_match2_id"
+    t.integer  "first_place_group_id"
+    t.integer  "second_place_group_id"
   end
 
   create_table "groups", force: true do |t|

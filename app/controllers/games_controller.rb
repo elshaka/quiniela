@@ -4,11 +4,12 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @groups = Group.all
+    @groups = Group.includes(:countries)
   end
 
   # GET /games/1/edit
   def edit
+    redirect_to games_path unless @game.defined
   end
 
   # PATCH/PUT /games/1
