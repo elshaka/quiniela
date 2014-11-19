@@ -1,6 +1,13 @@
-<canvas id="viewport" width="1000" height="400"></canvas>
+<style>
+  .span3 {
+    display: none !important;
+  }
+</style>
+<div id="container">
+  <canvas id="viewport" width="1200" height="500"></canvas>
+</div>
 <script language="javascript" type="text/javascript">
-  var sys = arbor.ParticleSystem(1000, 400,1);
+  var sys = arbor.ParticleSystem(1200, 500,1);
   sys.parameters({gravity:true});
   sys.renderer = Renderer("#viewport");
   $.getJSON( "graph/get_graph.json", function(data) {

@@ -11,8 +11,10 @@ Rails.application.routes.draw do
 
   root 'users#ranking'
 
-  match 'graph' => "graphs#index", :via => :get
-  match 'graph/get_graph' => "graphs#get_graph", :via => :get
+  match 'help' => 'help#index', :via => :get
+
+  match 'graph' => 'graphs#index', :via => :get
+  match 'graph/get_graph' => 'graphs#get_graph', :via => :get
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

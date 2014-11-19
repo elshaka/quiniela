@@ -1,0 +1,38 @@
+<h3>Ayuda</h3>
+<h4>Reglamento</h4>
+<p>Las siguientes reglas aplican a la hora de sumar puntos en la quinela.</p>
+<ul>
+  <li>Se ganan 3 puntos si se acierta el marcador exacto.</li>
+  <li>Se gana 1 punto si se acierta el resultado (victoria, derrota, empate).</li>
+  <li>En cualquier otro caso no se suman puntos.</li>
+</ul>
+<h4>Funcionalidad de la aplicación</h4>
+<h5>Menú Ranking</h5>
+<p>Permite visualizar el ranking de todos los usuarios registrados en la quiniela ordenados por puntos acumulados de mayor a menor.</p>
+<p>Desde aquí se puede visualizar y modificar la quinela de cada uno de los usuarios registrados.</p>
+<h5>Menú Resultados</h5>
+<p>Aquí se visualizan todos los resultados de todos los partidos del mundial, en el caso de fase de grupos se muestran además las posiciones de cada uno de los equipos en casa uno de los grupos correspondientes, ordenados por puntos y diferencia de goles.</p>
+<p>También es posible actualizar los resultados de todos los partidos haciendo click en el botón "Actualizar resultado" del partido correspondiente, al actualizarse cualquier resultado, se actualiza de manera automática los puntos acumulados de todas las quinelas.</p>
+<h5>Menú Usuarios</h5>
+<p>Permite administrar los usuarios participantes de la quinela, desde aquí se pueden agregar, editar o eliminar usuarios-</p>
+<h5>Menú grafo</h5>
+<p>Permite visualizar un grafo desde la fase de octavos hasta la final, los elementos del grafo pueden ser desplazados con el ratón.</p>
+<p>Cada partido tiene asignado un número entre corchetes según el cronograma de la FIFA, esto para poder indicr los participantes de los partidos que aún no han sido definidos.</p>
+<p>Esta notación se puede explicar con la siguiente imagen:</p>
+<p><%= image_tag 'ejemplo-grafo.png' %></p>
+<p>En la imagen se visualizan dos partidos de cuartos de final (en morado) y un partido de semifinal correspondiente (en verde), el primero de ellos tiene la siguiente notación:</p>
+<ul>
+<li>[58] FRA : ALE</li>
+</ul>
+<p>Lo que significa que es el partido número 58 que corresponde al enfrentamiento entre Francia y Alemania</P>
+<p>De manera similar el otro partido de cuartos de final tiene la siguiente notación</p>
+<ul>
+<li>[57] BRA : COL</li>
+</ul>
+<p>Que representa al partido número 57 entre Brasil y Colombia</p>
+<p>El partido de semifinal tiene la siguiente notación</p>
+<ul>
+<li>[61] G57 : G58</li>
+</ul>
+<p>La letra "G" denota "Ganador", lo que significa que es el partido número 61 entre el ganador del partido 57 y el ganador del partido 58</p>
+<p>Para el caso del partido para definir el tercer y cuarto lugar se utiliza la letra "P" para denotar a los perdedores de los partidos previos</p>

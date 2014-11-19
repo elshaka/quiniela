@@ -229,9 +229,20 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def self.generate_graph
+  def self.generate_graph(show_groups = false)
     data = {nodes: {}, edges: {}}
     games = Game.where(type: (OCTAVOS .. FINAL))
+
+    if show_groups
+      Group.all.each do |group|
+        data[:nodes]["gr#{group.id}".to_sym] = {
+          'color' => 'red',
+          'shape' => 'dot',
+          'label' => "Grupo #{group.code}",
+          'size' => 100
+        }
+      end
+    end
 
     games.each do |game|
       game_key = "g#{game.id}".to_sym
@@ -242,18 +253,31 @@ class Game < ActiveRecord::Base
         'size' => 100
       }
       
-      unless game.previous_match1_id.nil?
+      if game.type != OCTAVOS
         next_game1_key = "g#{game.previous_match1_id}".to_sym
         next_game2_key = "g#{game.previous_match2_id}".to_sym
-        data[:edges][game_key] = {next_game1_key => {}, next_game2_key => {}}
+        data[:edges][game_key] = {
+          next_game1_key => {},
+          next_game2_key => {}
+        }
+      elsif show_groups
+        data[:edges][game_key] = {
+          "gr#{game.first_place_group_id}".to_sym => {},
+          "gr#{game.second_place_group_id}".to_sym => {}
+        }
       end
     end
     data
   end
 
   def generate_node_text
-    country1_text = self.country1.present? ? self.country1.name[0..2].upcase : "#{self.type == TERCERO ? "P" : "G"}#{self.previous_match1.number}"
-    country2_text = self.country2.present? ? self.country2.name[0..2].upcase : "#{self.type == TERCERO ? "P" : "G"}#{self.previous_match2.number}"
+    if type != OCTAVOS
+      country1_text = self.country1.present? ? self.country1.name[0..2].upcase : "#{self.type == TERCERO ? "P" : "G"}#{self.previous_match1.number}"
+      country2_text = self.country2.present? ? self.country2.name[0..2].upcase : "#{self.type == TERCERO ? "P" : "G"}#{self.previous_match2.number}"
+    else
+      country1_text = self.country1.present? ? self.country1.name[0..2].upcase : "Primero #{self.first_place_group.code}"
+      country2_text = self.country2.present? ? self.country2.name[0..2].upcase : "Segundo #{self.second_place_group.code}"
+    end
     "[#{self.number}] #{country1_text} #{self.country1_goals} : #{self.country2_goals} #{country2_text}"
   end
 
